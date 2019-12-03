@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Main {
 
@@ -17,31 +19,32 @@ public class Main {
             ArrayList<Coordinates> subCoordinate = new ArrayList<>();
             int prevx = 0;
             int prevy = 0;
+            int steps = 0;
             for (ManhattenCoordinates manhattenCoordinates : queue) {
                 if (manhattenCoordinates.getDirection() == Direction.RIGHT) {
                     for (int i = 0; i < manhattenCoordinates.getSteps(); i++) {
-                        Coordinates tmpcords = new Coordinates((prevy), prevx + 1);
+                        Coordinates tmpcords = new Coordinates((prevy), prevx + 1, ++steps);
                         prevx = tmpcords.getX();
                         prevy = tmpcords.getY();
                         subCoordinate.add(tmpcords);
                     }
                 } else if (manhattenCoordinates.getDirection() == Direction.LEFT) {
                     for (int i = 0; i < manhattenCoordinates.getSteps(); i++) {
-                        Coordinates tmpcords = new Coordinates((prevy), prevx - 1);
+                        Coordinates tmpcords = new Coordinates((prevy), prevx - 1, ++steps);
                         prevx = tmpcords.getX();
                         prevy = tmpcords.getY();
                         subCoordinate.add(tmpcords);
                     }
                 } else if (manhattenCoordinates.getDirection() == Direction.DOWN) {
                     for (int i = 0; i < manhattenCoordinates.getSteps(); i++) {
-                        Coordinates tmpcords = new Coordinates((prevy - 1), prevx);
+                        Coordinates tmpcords = new Coordinates((prevy - 1), prevx, ++steps);
                         prevx = tmpcords.getX();
                         prevy = tmpcords.getY();
                         subCoordinate.add(tmpcords);
                     }
                 } else if (manhattenCoordinates.getDirection() == Direction.UP) {
                     for (int i = 0; i < manhattenCoordinates.getSteps(); i++) {
-                        Coordinates tmpcords = new Coordinates((prevy + 1), prevx);
+                        Coordinates tmpcords = new Coordinates((prevy + 1), prevx, ++steps);
                         prevx = tmpcords.getX();
                         prevy = tmpcords.getY();
                         subCoordinate.add(tmpcords);
@@ -50,11 +53,8 @@ public class Main {
             }
             coordinates.add(subCoordinate);
         }
-
-
+        
         int distance = 0;
-
-        System.out.println(coordinates.get(0).size()+coordinates.get(1).size());
 
         //97.000.000 iterations needed lol
         for (int i = 0; i < coordinates.get(0).size(); i++) {
@@ -64,9 +64,9 @@ public class Main {
                         && ((coordinates.get(0).get(i).getX() != 0) && (coordinates.get(0).get(i).getY() != 0))) {
 
                     if (distance == 0) {
-                        distance = (Math.abs(coordinates.get(1).get(j).getX()) + Math.abs(coordinates.get(1).get(j).getY()));
+                        distance = (coordinates.get(1).get(j).getSteps() + coordinates.get(0).get(i).getSteps());
                     } else {
-                        int tmpdist = (Math.abs(coordinates.get(1).get(j).getX()) + Math.abs(coordinates.get(1).get(j).getY()));
+                        int tmpdist = (coordinates.get(1).get(j).getSteps() + coordinates.get(0).get(i).getSteps());
                         if (distance > tmpdist) {
                             distance = tmpdist;
                         }

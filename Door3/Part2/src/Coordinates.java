@@ -4,10 +4,12 @@ public class Coordinates implements Comparable<Coordinates>{
 
     private int y;
     private int x;
+    private int steps;
 
-    public Coordinates(int y, int x) {
+    public Coordinates(int y, int x, int steps) {
         this.y = y;
         this.x = x;
+        this.steps = steps;
     }
 
     public int getY() {
@@ -16,6 +18,10 @@ public class Coordinates implements Comparable<Coordinates>{
 
     public int getX() {
         return x;
+    }
+
+    public int getSteps() {
+        return steps;
     }
 
     @Override
