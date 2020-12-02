@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Part1 {
 
     public static void main(String[] args) throws IOException {
-        String path = "./01-Door/files/part1.input";
+        String path = "./01-Door/files/door1.input";
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             ArrayList<Integer> list = new ArrayList<>();
             String line;
