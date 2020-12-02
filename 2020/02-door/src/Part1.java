@@ -19,11 +19,16 @@ public class Part1 {
             for (String elem : list) {
                 String[] split = elem.split(" ");
                 String[] policies = split[0].split("-");
-                int pos1 = Integer.parseInt(policies[0]) - 1;
-                int pos2 = Integer.parseInt(policies[1]) - 1;
+                int min = Integer.parseInt(policies[0]);
+                int max = Integer.parseInt(policies[1]);
                 char c = split[1].charAt(0);
 
-                if (split[2].charAt(pos1) == c ^ split[2].charAt(pos2) == c) valid++;
+                int count = 0;
+
+                for (int i = 0; i < split[2].length(); i++) {
+                    if(split[2].charAt(i) == c) count++;
+                }
+                if(count >= min && count <= max) valid++;
             }
             System.out.println(valid);
         }
